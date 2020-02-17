@@ -33,6 +33,11 @@ public class ClimbUpLeftCommand extends CommandBase {
       climbsub.climbUp();
   }
 
+  public void stopClimb()
+  {
+    climbsub.stopClimb();
+  }
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {

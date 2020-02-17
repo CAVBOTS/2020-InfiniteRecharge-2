@@ -16,8 +16,10 @@ import frc.robot.commands.ClimbDownLeftCommand;
 import frc.robot.commands.ClimbDownRightCommand;
 import frc.robot.commands.ClimbUpLeftCommand;
 import frc.robot.commands.ClimbUpRightCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveTrainSub;
+import frc.robot.subsystems.IntakeSub;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -37,6 +39,9 @@ public class Robot extends TimedRobot {
   private ClimbDownLeftCommand climbdownleftcommand = new ClimbDownLeftCommand(climbsub2);
   private Joystick driver = new Joystick(0);  //creates the controller
   private Joystick operator = new Joystick(1);//logitech gamepad
+  private IntakeSub intakesub = new IntakeSub();
+  private IntakeCommand intakecommand = new IntakeCommand(intakesub);
+  
    
 
 
@@ -129,18 +134,35 @@ public class Robot extends TimedRobot {
   public void testPeriodic() 
   {
 
-    drivetrainsub.Drive(Constants.drivey, Constants.drivex);
+    drivetrainsub.Drive(-(operator.getRawAxis()), ope); //TODO fix this line of code
+
+    if(operator.getRawButtonPressed(Constants.intake) && intakecommand.getCount() <= 5)
+    {
+      intakecommand.inTake();
+    }
+    else
+      {
+        intakecommand.stopInTake();
+      }
     //this checks if the button is pressed and if the encoder values are too low or too high
     //if statement to check if you can climb up or down
-    //TODO test to see what the right buttons are to be pressed and to check the max and min encoder value
     if(operator.getRawButtonPressed(Constants.climbupright) && climbsub1.getEncoder() < Constants.maxencodervalue)
     {
       climbuprightcommand.climb();
     }
-   
+    else
+    {
+      climbuprightcommand.stopClimb();
+    }
+
     if(operator.getRawButtonPressed(Constants.climbupleft) && climbsub2.getEncoder() < Constants.maxencodervalue)
     {
       climbupleftcommand.climb();
+    }
+
+    else
+    {
+      climbupleftcommand.stopClimb();
     }
 
     if(operator.getRawButtonPressed(Constants.climbdownleft) && climbsub2.getEncoder() < Constants.minencodervalue)
@@ -148,9 +170,19 @@ public class Robot extends TimedRobot {
       climbdownleftcommand.climb();
     }
 
+    else
+    {
+      climbdownleftcommand.stopClimb();
+    }
+
     if(operator.getRawButtonPressed(Constants.climbdownright) && climbsub1.getEncoder() < Constants.minencodervalue)
     {
       climbdownrightcommand.climb();
+    }
+
+    else
+    {
+      climbdownrightcommand.stopClimb();
     }
     
   }

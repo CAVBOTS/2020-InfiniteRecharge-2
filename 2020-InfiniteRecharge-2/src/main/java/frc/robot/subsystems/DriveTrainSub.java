@@ -35,7 +35,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   }
 
-  public void Drive(int y, int x)
+  public void Drive(double y, double x)
   {
     allRobot.arcadeDrive(-y,x);
   }

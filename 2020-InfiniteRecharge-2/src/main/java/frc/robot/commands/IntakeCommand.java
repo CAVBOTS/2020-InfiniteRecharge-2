@@ -7,38 +7,25 @@
 
 package frc.robot.commands;
 
-import frc.robot.Constants;
-import frc.robot.subsystems.ClimbSub;
+import frc.robot.subsystems.IntakeSub;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class ClimbUpRightCommand extends CommandBase {
-  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-
-    private ClimbSub climbsub;
+public class IntakeCommand extends CommandBase {
+  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  private final IntakeSub intakesub;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ClimbUpRightCommand(ClimbSub subsystem) {
-
-    subsystem = climbsub;
+  public IntakeCommand(IntakeSub subsystem) {
+    intakesub = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
-
-public void climb()
-{
-  climbsub.climbUp();
-}
-
-public void stopClimb()
-{
-  climbsub.stopClimb();
-}
 
   // Called when the command is initially scheduled.
   @Override
@@ -50,6 +37,20 @@ public void stopClimb()
   public void execute() {
   }
 
+  public void inTake()
+  {
+    intakesub.inTake();
+  }
+
+  public void stopInTake()
+  {
+    intakesub.stopInTake();
+  }
+
+  public int getCount()
+  {
+    return intakesub.getCount();
+  }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
