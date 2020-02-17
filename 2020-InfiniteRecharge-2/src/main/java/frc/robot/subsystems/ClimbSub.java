@@ -46,6 +46,11 @@ public class ClimbSub extends SubsystemBase {
     climbmotor.set(-1);
   }
 
+  public void stopClimb()
+  {
+    climbmotor.set(0);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

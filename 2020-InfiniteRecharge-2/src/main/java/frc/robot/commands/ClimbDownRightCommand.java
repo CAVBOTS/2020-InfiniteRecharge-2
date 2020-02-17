@@ -34,6 +34,10 @@ public void climb()
   climbsub.climbDown();
 }
 
+public void stopClimb()
+{
+  climbsub.stopClimb();
+}
 
   // Called when the command is initially scheduled.
   @Override
