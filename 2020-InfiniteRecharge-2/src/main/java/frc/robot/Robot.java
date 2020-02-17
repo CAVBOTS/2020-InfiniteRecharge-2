@@ -7,9 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.ClimbDownLeftCommand;
+import frc.robot.commands.ClimbDownRightCommand;
+import frc.robot.commands.ClimbUpLeftCommand;
 import frc.robot.commands.ClimbUpRightCommand;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveTrainSub;
@@ -24,9 +29,14 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   public final DriveTrainSub drivetrainsub = new DriveTrainSub();
   private RobotContainer m_robotContainer;
-  private ClimbSub climbsub1 = new ClimbSub(Constants.rackone); 
-  private ClimbSub climbsub2 = new ClimbSub(Constants.racktwo);
-  private ClimbUpRightCommand climbupcommand = new ClimbUpRightCommand(climbsub1);
+  private ClimbSub climbsub1 = new ClimbSub(Constants.rackone); //creates the right motor subsystem
+  private ClimbSub climbsub2 = new ClimbSub(Constants.racktwo); //creates the left motor subsystem
+  private ClimbUpRightCommand climbuprightcommand = new ClimbUpRightCommand(climbsub1); //creates the right climb up command
+  private ClimbUpLeftCommand climbupleftcommand = new ClimbUpLeftCommand(climbsub2); //creates the left climb up command
+  private ClimbDownRightCommand climbdownrightcommand = new ClimbDownRightCommand(climbsub1); //creates the right climb down command
+  private ClimbDownLeftCommand climbdownleftcommand = new ClimbDownLeftCommand(climbsub2);
+  private Joystick driver = new Joystick(0);  //creates the controller
+  private Joystick operator = new Joystick(1);//logitech gamepad
    
 
 
@@ -120,10 +130,28 @@ public class Robot extends TimedRobot {
   {
 
     drivetrainsub.Drive(Constants.drivey, Constants.drivex);
+    //this checks if the button is pressed and if the encoder values are too low or too high
+    //if statement to check if you can climb up or down
+    //TODO test to see what the right buttons are to be pressed and to check the max and min encoder value
+    if(operator.getRawButtonPressed(Constants.climbupright) && climbsub1.getEncoder() < Constants.maxencodervalue)
+    {
+      climbuprightcommand.climb();
+    }
+   
+    if(operator.getRawButtonPressed(Constants.climbupleft) && climbsub2.getEncoder() < Constants.maxencodervalue)
+    {
+      climbupleftcommand.climb();
+    }
 
-    //TODO make an if statement checking the encoder position value and if the button has been pushed.
+    if(operator.getRawButtonPressed(Constants.climbdownleft) && climbsub2.getEncoder() < Constants.minencodervalue)
+    {
+      climbdownleftcommand.climb();
+    }
 
-
+    if(operator.getRawButtonPressed(Constants.climbdownright) && climbsub1.getEncoder() < Constants.minencodervalue)
+    {
+      climbdownrightcommand.climb();
+    }
     
   }
 }

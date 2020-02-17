@@ -36,11 +36,15 @@ public final class Constants {
     public static final int intakemotorID = 8;
     public static final int intakefollowerID = 9;
 
-    //Rack and pinion motors
+    //Rack and pinion 
     public final static int rackone = 10;//right motor
     public final static int racktwo = 11;//left motor
     public final static int maxencodervalue = 8; // used in the if statement to check max height 
     public final static int minencodervalue = -8; // used in the if statemnt to check the min height
+    public final static int climbupright = 10; //this is the button used on the operator to move right motor up
+    public final static int climbupleft = 11; // this is the button used on the operator to move left motor up
+    public final static int climbdownright = 12; // this is the button used on the operator to move the right motor down
+    public final static int climbdownleft = 13; // this is the button used on the operator to move the left motor down
 
     //elevator motors
     public static final int e_leftmotorID = 12;
