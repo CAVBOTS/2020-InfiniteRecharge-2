@@ -24,10 +24,16 @@ public final class Constants {
     public final static int dm_leftfollowerID = 2;
     public final static int dm_motorrightID = 3;
     public final static int dm_rightfollowerID = 4;
+    public final static int driver1= 1;
+    public final static int driver2 = 2;
 
     //launcher motors
     public static final int rotorymotorID = 5;
     public static final int wheelmotorID = 6;
+    
+
+    //limelight ids
+    public static final int aimingID = 1; // button for aiming 
 
     //Colorwheel
     public static final int colormotorID = 7;

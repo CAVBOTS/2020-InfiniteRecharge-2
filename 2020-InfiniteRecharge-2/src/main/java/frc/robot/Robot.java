@@ -20,6 +20,10 @@ import frc.robot.commands.IntakeCommand;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
+import frc.robot.subsystems.LimeLightSubsystem;
+import edu.wpi.first.networktables.NetworkTable; 
+import edu.wpi.first.networktables.NetworkTableEntry; 
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -41,11 +45,11 @@ public class Robot extends TimedRobot {
   private Joystick operator = new Joystick(1);//logitech gamepad
   private IntakeSub intakesub = new IntakeSub();
   private IntakeCommand intakecommand = new IntakeCommand(intakesub);
-  
-   
+  private LimeLightSubsystem limelightsubsystem = new LimeLightSubsystem();
 
+  private 
 
-  /**
+/*
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
@@ -133,8 +137,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() 
   {
+//		myRobot.arcadeDrive(driver.getRawAxis(1), -(driver.getRawAxis(0))); left Stick Drive
 
-    drivetrainsub.Drive(-(operator.getRawAxis()), ope); //TODO fix this line of code
+    drivetrainsub.Drive(-driver.getRawAxis(Constants.driver1), driver.getRawAxis(Constants.driver2)); //TODO fix this line of code
 
     if(operator.getRawButtonPressed(Constants.intake) && intakecommand.getCount() <= 5)
     {
@@ -144,6 +149,8 @@ public class Robot extends TimedRobot {
       {
         intakecommand.stopInTake();
       }
+
+
     //this checks if the button is pressed and if the encoder values are too low or too high
     //if statement to check if you can climb up or down
     if(operator.getRawButtonPressed(Constants.climbupright) && climbsub1.getEncoder() < Constants.maxencodervalue)
