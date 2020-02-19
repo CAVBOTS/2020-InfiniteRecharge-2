@@ -7,27 +7,37 @@
 
 package frc.robot.commands;
 
+import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSub;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /**
  * An example command that uses an example subsystem.
  */
-public class IntakeCommand extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class MoveIntakeCommand extends CommandBase {
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final IntakeSub intakesub;
+
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSub subsystem) {
+  public MoveIntakeCommand(IntakeSub subsystem) {
     intakesub = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(subsystem);
   }
 
+  public void raise()
+{
+  intakesub.raise();
+}
+
+public void lower()
+{
+  intakesub.lower();
+}
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
@@ -36,21 +46,8 @@ public class IntakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    SmartDashboard.putString("DB/String 5", ""+intakesub.getCount());
-    SmartDashboard.putString("DB/String 0", "# of balls");
   }
 
-  public void inTake()
-  {
-    intakesub.inTake();
-  }
-
-  public void stopInTake()
-  {
-    intakesub.stopInTake();
-  }
-
-  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

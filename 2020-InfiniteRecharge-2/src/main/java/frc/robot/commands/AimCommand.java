@@ -20,7 +20,7 @@ public class AimCommand extends CommandBase {
 
     
   
-    public AimCommand(LimeLightSubsystem lime, CANSparkMax left, CANSparkMax right, CANSparkMax leftfol, CANSparkMax rightfol) 
+    public AimCommand(LimeLightSubsystem lime, CANSparkMax right, CANSparkMax left, CANSparkMax rightfol, CANSparkMax leftfol) 
     {
         this.lime = lime;
         this.leftMotor = left;

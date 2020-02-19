@@ -12,11 +12,13 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.AimCommand;
 import frc.robot.commands.ClimbDownLeftCommand;
 import frc.robot.commands.ClimbDownRightCommand;
 import frc.robot.commands.ClimbUpLeftCommand;
 import frc.robot.commands.ClimbUpRightCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.MoveIntakeCommand;
 import frc.robot.subsystems.ClimbSub;
 import frc.robot.subsystems.DriveTrainSub;
 import frc.robot.subsystems.IntakeSub;
@@ -32,23 +34,28 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * project.
  */
 public class Robot extends TimedRobot {
+
   private Command m_autonomousCommand;
+
   public final DriveTrainSub drivetrainsub = new DriveTrainSub();
-  private RobotContainer m_robotContainer;
+  
+  public RobotContainer m_robotContainer;
+
   private ClimbSub climbsub1 = new ClimbSub(Constants.rackone); //creates the right motor subsystem
   private ClimbSub climbsub2 = new ClimbSub(Constants.racktwo); //creates the left motor subsystem
   private ClimbUpRightCommand climbuprightcommand = new ClimbUpRightCommand(climbsub1); //creates the right climb up command
   private ClimbUpLeftCommand climbupleftcommand = new ClimbUpLeftCommand(climbsub2); //creates the left climb up command
   private ClimbDownRightCommand climbdownrightcommand = new ClimbDownRightCommand(climbsub1); //creates the right climb down command
   private ClimbDownLeftCommand climbdownleftcommand = new ClimbDownLeftCommand(climbsub2);
+
   private Joystick driver = new Joystick(0);  //creates the controller
   private Joystick operator = new Joystick(1);//logitech gamepad
+
   private IntakeSub intakesub = new IntakeSub();
+  private MoveIntakeCommand moveintakecommand = new MoveIntakeCommand(intakesub);
   private IntakeCommand intakecommand = new IntakeCommand(intakesub);
-  private LimeLightSubsystem limelightsubsystem = new LimeLightSubsystem();
 
-  private 
-
+  LimeLightSubsystem limelightsub = new LimeLightSubsystem();
 /*
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -137,11 +144,12 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() 
   {
+    intakecommand.execute();
 //		myRobot.arcadeDrive(driver.getRawAxis(1), -(driver.getRawAxis(0))); left Stick Drive
 
     drivetrainsub.Drive(-driver.getRawAxis(Constants.driver1), driver.getRawAxis(Constants.driver2)); //TODO fix this line of code
 
-    if(operator.getRawButtonPressed(Constants.intake) && intakecommand.getCount() <= 5)
+    if(operator.getRawButton(Constants.intake))
     {
       intakecommand.inTake();
     }
@@ -190,6 +198,17 @@ public class Robot extends TimedRobot {
     else
     {
       climbdownrightcommand.stopClimb();
+    }
+    //testing the intake 
+    
+    if(operator.getRawButtonPressed(Constants.raiseIntake))
+    {
+      moveintakecommand.raise();
+    }
+
+    if(operator.getRawButtonPressed(Constants.lowerIntake))
+    {
+      moveintakecommand.lower();
     }
     
   }

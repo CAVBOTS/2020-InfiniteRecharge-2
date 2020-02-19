@@ -41,11 +41,13 @@ public final class Constants {
     //intake subsystem
     public static final int intakemotorID = 8;
     public static final int compressorID = 1;
-    public static final int firstID = 2;
-    public static final int secondID = 3;
+    public static final int firstID = 2; //first pnuematic
+    public static final int secondID = 3; //second pnuematic
     public static final int limitID = 4;
     public static final int compID = 1;
     public static final int intake = 5;//button to intake
+    public static final int raiseIntake = 5; //button to raise intake
+    public static final int lowerIntake = 6; // button to lower intake
 
     //Rack and pinion 
     public final static int rackone = 10;//right motor

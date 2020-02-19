@@ -17,7 +17,8 @@ public class LauncherSubsystem extends SubsystemBase
   }
  
   DoubleSolenoid leftSolenoid = new DoubleSolenoid(13,1,0); //(CAN ID, Pneumatic ID, Pneumatic ID2)
-  DoubleSolenoid rightSolenoid = new DoubleSolenoid(13,3,2); //(CAN ID, Pneumatic ID, Pneumatic ID2)
+  DoubleSolenoid rightSolenoid = new DoubleSolenoid(13,3,2); //(CAN ID, Pneumatic ID, Pneumatic ID2) 
+  //TODO ask ming what this is 
   public void angle(boolean p)
   {
       

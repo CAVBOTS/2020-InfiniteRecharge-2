@@ -19,10 +19,10 @@ public class DriveTrainSub extends SubsystemBase {
   /**
    * Creates a new TEST.
    */
-  private CANSparkMax front_right = new CANSparkMax(Constants.dm_motorrightID, MotorType.kBrushless);
-  private CANSparkMax front_left = new CANSparkMax(Constants.dm_motorleftID, MotorType.kBrushless);
-  private CANSparkMax back_right = new CANSparkMax(Constants.dm_rightfollowerID, MotorType.kBrushless);
-  private CANSparkMax back_left = new CANSparkMax(Constants.dm_leftfollowerID, MotorType.kBrushless);
+  public static CANSparkMax front_right = new CANSparkMax(Constants.dm_motorrightID, MotorType.kBrushless);
+  public static CANSparkMax front_left = new CANSparkMax(Constants.dm_motorleftID, MotorType.kBrushless);
+  public static CANSparkMax back_right = new CANSparkMax(Constants.dm_rightfollowerID, MotorType.kBrushless);
+  public static CANSparkMax back_left = new CANSparkMax(Constants.dm_leftfollowerID, MotorType.kBrushless);
 
   SpeedControllerGroup mLeft = new SpeedControllerGroup(front_left, back_left);
   SpeedControllerGroup mRight = new SpeedControllerGroup(front_right, back_right);
@@ -35,6 +35,7 @@ public class DriveTrainSub extends SubsystemBase {
 
   }
 
+  
   public void Drive(double y, double x)
   {
     allRobot.arcadeDrive(-y,x);

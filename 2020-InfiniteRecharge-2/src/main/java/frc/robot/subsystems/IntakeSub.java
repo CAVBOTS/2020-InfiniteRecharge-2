@@ -26,6 +26,8 @@ public class IntakeSub extends SubsystemBase {
 
   private Compressor comp = new Compressor(Constants.compID);
 
+  private boolean boo = true;
+
   private static int count = 0;
 
   public IntakeSub() {
@@ -40,6 +42,26 @@ public class IntakeSub extends SubsystemBase {
   public void stopInTake()
   {
     intake_motor.set(0);
+  }
+
+  public void raise()
+  {
+    if(!boo)
+    {
+      lifter.set(DoubleSolenoid.Value.kReverse);
+      lifter.set(DoubleSolenoid.Value.kForward);
+      boo = true;
+    }
+  }
+
+  public void lower()
+  {
+    if(boo)
+    {
+      lifter.set(DoubleSolenoid.Value.kReverse);
+      lifter.set(DoubleSolenoid.Value.kForward);
+      boo = false;
+    }
   }
 
   @Override

@@ -20,8 +20,12 @@ public class AutonomousCommand extends CommandBase {
 
     
   
-    public AutonomousCommand() {
-        
+    public AutonomousCommand(CANSparkMax front_right, CANSparkMax front_left, CANSparkMax back_right, CANSparkMax back_left)
+     {
+        leftMotor = front_left;
+        rightMotor = front_right;
+        leftFollower = back_left;
+        rightFollower = back_right;
       // Use addRequirements() here to declare subsystem dependencies.
     }
   
@@ -30,10 +34,7 @@ public class AutonomousCommand extends CommandBase {
     public void initialize() {
 
         //initialize motors
-        leftMotor = new CANSparkMax(Constants.dm_motorleftID, MotorType.kBrushless);
-        rightMotor = new CANSparkMax(Constants.dm_motorrightID, MotorType.kBrushless);
-        leftFollower = new CANSparkMax(Constants.dm_leftfollowerID, MotorType.kBrushless);
-        rightFollower = new CANSparkMax(Constants.dm_rightfollowerID, MotorType.kBrushless);
+        
         aim = new AimCommand(lime, leftMotor, rightMotor, leftFollower, rightFollower);
     }
   
